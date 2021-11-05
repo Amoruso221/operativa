@@ -10,11 +10,11 @@ h1 {
     font-size: 70px;
 }
 
-.spanRight {
-    margin-left: 320px;
-}
-
 .sedesButton {
     margin-left: 165px;
     margin-top: 20px;
+}
+
+.sedes {
+    margin-top: 100px;
 }

@@ -9,10 +9,12 @@ class Sede(models.Model):
     calle = models.CharField(max_length=50)
     numero = models.IntegerField(default=0)
     vacuna = models.CharField(max_length=50)
+    hora_inicio = models.TimeField()
+    hora_fin = models.TimeField()
     canales = models.IntegerField(default=0)
     espera_maxima = models.IntegerField(default=0)
     longitud_cola = models.IntegerField(default=0)
-    abierta = models.BooleanField(default=True)
+    habilitada = models.BooleanField(default=True)
     imagen = models.ImageField(upload_to="img/%y", default="default.svg")
 
     def __str__(self):

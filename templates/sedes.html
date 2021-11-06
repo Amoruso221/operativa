@@ -47,22 +47,35 @@
 
             <!--sedes-->
             {% for x in sedes %}
+            {% if x.habilitada%}
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
                 <img class="card-img-top" src="{{x.imagen.url}}" alt="Imagen">
                 <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    <h1 class="text-center">{{x.nombre}}</h1>
+                    <hr/>
+                    <div class="row">
+                        <div class="col">
+                            <p><b>Calle:</b> {{x.calle}} {{x.numero}}</p>
+                        </div>
+                        <div class="col">
+                            <p><b>Vacuna:</b> {{x.vacuna}}</p>
+                        </div>
                     </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
+                    <div class="row">
+                        <div class="col">
+                            <!--Calcular longitud de cola / promedio de llegadas por hora-->
+                            <p><b>Espera estimada:</b><br> 10 minutos</p>
+                        </div>
+                        <div class="col">
+                            <p><b>Estado:</b> {{x.estado}}</p>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
             <!--fin sedes-->
+            {% endif %}
             {% endfor %}
 
         </div>

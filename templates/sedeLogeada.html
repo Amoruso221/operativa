@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sede logeada</title>
+</head>
+<body>
+  {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+  {% else %}
+    <p>Welcome, new user. Please log in.</p>
+  {% endif %}
+</body>
+</html>

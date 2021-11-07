@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'vacunatorios.apps.VacunatoriosConfig'
+    'vacunatorios.apps.VacunatoriosConfig',
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -127,5 +128,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+LOGIN_REDIRECT_URL = "sedeLogeada/"
+LOGOUT_REDIRECT_URL = "sedes/"
 
 

@@ -1,12 +1,8 @@
 from django.db import models
-<<<<<<< HEAD
-
-=======
 from django.contrib.auth.models import User
 import datetime
 from django.db.models.signals import post_save
 from django.dispatch import receiver
->>>>>>> agustin
 # Create your models here.
 
 
@@ -25,12 +21,5 @@ class Sede(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
-<<<<<<< HEAD
-        txt = "Nombre: {0}, Direccion: {1} {2}, Vacuna: {3}, Canales: {4}, Espera maxima (mins): {5}"
-        return txt.format(self.nombre, self.calle, self.numero, self.vacuna, self.canales, self.espera_maxima)
-=======
-        txt = "Nombre: {0}, Direccion: {1} {2}, Vacuna: {3}, Canales: {4}, Espera maxima (mins): {5}, User: {6}"
-        return txt.format(self.nombre, self.calle, self.numero, self.vacuna, self.canales, self.espera_maxima, self.user)
-
-
->>>>>>> agustin
+        txt = "Nombre: {0}, Direccion: {1} {2}, Vacuna: {3}, User: {4}"
+        return txt.format(self.nombre, self.calle, self.numero, self.vacuna, self.user)

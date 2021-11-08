@@ -30,24 +30,26 @@ def sedes(request):
 
     for sede in sedes:
         sede.estado = estado_actual(sede.hora_inicio, sede.hora_fin)
-        promedio = promedio_tiempo_espera(sede.prom_llegadas, sede.prom_atendidas)
+        sede.promedio = promedio_tiempo_espera(sede.prom_llegadas, sede.prom_atendidas)
 
-    return render(request, 'sedes.html', {'sedes': sedes, 'promedio': promedio})
-
+    return render(request, 'sedes.html', {'sedes': sedes})
 
 
 def promedio_tiempo_espera(prom_llegadas, prom_atendidas):
-    #Prom. de llegadas / tiempo
-    v_lambda = prom_llegadas / 60
-    #Prom. de unidades atendidas / tiempo
+    #Prom. de llegadas / tiempo 2,5
+    v_lambda = prom_llegadas /60
+    #Prom. de unidades atendidas / tiempo 4,6
     mu = prom_atendidas / 60
     # Lc/λ
     # Lc = Prom. de unidades en espera / Longitud de la cola
+    #lc = (v_lambda * v_lambda) / (mu * (mu - v_lambda))
+    #resultado = lc / v_lambda
+    #promedio de clientes en cola
+    #lq = (longitud_cola * longitud_cola) / (1 - longitud_cola)
+    #tiempo promedio de espera en la cola
+    #wq = lq / v_lambda
+    return 0
 
-    lc = (v_lambda * v_lambda) / (mu * (mu - v_lambda))
-    resultado = lc / v_lambda
-
-    return resultado
 
 @login_required
 def sede_logeada(request):
@@ -64,10 +66,3 @@ def sede_logeada(request):
 def logout_view(request):
 
     logout(request, 'index.html')
-
-
-<<<<<<< HEAD
-    return render(request, 'sedes.html', {'sedes': sedes})
-=======
-
->>>>>>> agustin

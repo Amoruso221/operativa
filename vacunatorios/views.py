@@ -18,10 +18,10 @@ def index(request):
 
 def estado_actual(hora_inicio, hora_fin):
     ahora = datetime.now().time()
-    estado = "cerrado"
+    estado = "Cerrado"
 
     if ahora > hora_inicio and ahora < hora_fin:
-        estado = "abierto"
+        estado = "Abierto"
     return estado
 
 
@@ -30,30 +30,24 @@ def sedes(request):
 
     for sede in sedes:
         sede.estado = estado_actual(sede.hora_inicio, sede.hora_fin)
-        sede.promedio = promedio_tiempo_espera(sede.prom_llegadas, sede.prom_atendidas)
+        promedio = promedio_tiempo_espera(sede.prom_llegadas, sede.prom_atendidas)
 
-    return render(request, 'sedes.html', {'sedes': sedes})
+    return render(request, 'sedes.html', {'sedes': sedes, 'promedio': promedio})
 
 
-def promedio_tiempo_espera(prom_llegadas, prom_atendidas):
-    #Prom. de llegadas / tiempo 2,5
-    v_lambda = prom_llegadas /60
-    #Prom. de unidades atendidas / tiempo 4,6
-    mu = prom_atendidas / 60
-    # Lc/λ
-    # Lc = Prom. de unidades en espera / Longitud de la cola
-    #lc = (v_lambda * v_lambda) / (mu * (mu - v_lambda))
-    #resultado = lc / v_lambda
-    #promedio de clientes en cola
-    #lq = (longitud_cola * longitud_cola) / (1 - longitud_cola)
-    #tiempo promedio de espera en la cola
-    #wq = lq / v_lambda
-    return 0
+def promedio_tiempo_espera(llegadas, atendidas):
+    #promedio de llegadas por hora
+    lamb = llegadas
+    #promedio de atencion por hora
+    mu = atendidas
+    #tiempo promedio que una unidad espera en la cola
+    wq = lamb / (mu * (mu - lamb))
+    resultado = round(wq * 60)
+    return resultado
 
 
 @login_required
 def sede_logeada(request):
-
     sedes = Sede.objects.all()
 
     for sede in sedes:
@@ -64,5 +58,5 @@ def sede_logeada(request):
 
 
 def logout_view(request):
-
     logout(request, 'index.html')
+

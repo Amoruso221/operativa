@@ -1,8 +1,11 @@
+import math
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from vacunatorios.models import Sede
 from datetime import datetime
 from django.contrib.auth import logout
+import random
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.shortcuts import redirect
@@ -27,21 +30,35 @@ def sedes(request):
 
     for sede in sedes:
         sede.estado = estado_actual(sede.hora_inicio, sede.hora_fin)
-        promedio = tiempo_promedio(sede.longitud_cola)
+        promedio = promedio_tiempo_espera(sede.prom_llegadas, sede.prom_atendidas)
 
     return render(request, 'sedes.html', {'sedes': sedes, 'promedio': promedio})
 
 
-def tiempo_promedio(longitud_cola):
+
+def promedio_tiempo_espera(prom_llegadas, prom_atendidas):
+    #Prom. de llegadas / tiempo
+    v_lambda = prom_llegadas / 60
+    #Prom. de unidades atendidas / tiempo
+    mu = prom_atendidas / 60
     # Lc/λ
-    # Longitud de la cola/ promedio de llegadas
-    llegadas = 4
-    res = longitud_cola / llegadas
-    return res
+    # Lc = Prom. de unidades en espera / Longitud de la cola
+
+    lc = (v_lambda * v_lambda) / (mu * (mu - v_lambda))
+    resultado = lc / v_lambda
+
+    return resultado
 
 @login_required
 def sede_logeada(request):
-    return render(request, 'sedeLogeada.html')
+
+    sedes = Sede.objects.all()
+
+    for sede in sedes:
+        if sede.user == request.user:
+            sede.estado = estado_actual(sede.hora_inicio, sede.hora_fin)
+            promedio = promedio_tiempo_espera(sede.prom_llegadas, sede.prom_atendidas)
+            return render(request, 'sedeLogeada.html', {'sede': sede, 'promedio': promedio})
 
 
 def logout_view(request):

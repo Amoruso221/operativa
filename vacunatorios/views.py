@@ -25,4 +25,3 @@ def sedes(request):
         sede.estado = estado_actual(sede.hora_inicio, sede.hora_fin)
 
     return render(request, 'sedes.html', {'sedes': sedes})
-

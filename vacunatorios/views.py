@@ -18,10 +18,10 @@ def index(request):
 
 def estado_actual(hora_inicio, hora_fin):
     ahora = datetime.now().time()
-    estado = "cerrado"
+    estado = "Cerrado"
 
     if ahora > hora_inicio and ahora < hora_fin:
-        estado = "abierto"
+        estado = "Abierto"
     return estado
 
 
@@ -66,8 +66,3 @@ def logout_view(request):
     logout(request, 'index.html')
 
 
-<<<<<<< HEAD
-    return render(request, 'sedes.html', {'sedes': sedes})
-=======
-
->>>>>>> agustin

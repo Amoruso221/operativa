@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sede logeada</title>
-</head>
-<body>
-  {% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
-  {% else %}
-    <p>Welcome, new user. Please log in.</p>
-  {% endif %}
+{% extends "base.html" %}
+
+
+
+    {% block content %}
 
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
                 <img class="card-img-top" src="{{sede.imagen.url}}" alt="Imagen">
                 <div class="card-body">
                     <h1 class="text-center">{{sede.nombre}}</h1>
+                    {% if user.is_authenticated %}
+                    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+                    {% else %}
+                    <p>Welcome, new user. Please log in.</p>
+                    {% endif %}
                     <hr/>
                     <div class="row">
                         <div class="col">
@@ -36,5 +34,5 @@
                     </div>
                 </div>
               </div>
-</body>
-</html>
+            </div>
+    {% endblock %}
